@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7 Palavras</title>
+
+    <script>!function (i, n) { i._plt = i._plt || (n && n.timeOrigin ? n.timeOrigin + n.now() : Date.now()) }(window, performance);</script>
+    <link rel="preload" href="https://scripts.converteai.net/cda0fd17-3b99-44d2-a83a-fc66435cb2df/ab-test/6a08eebf07a4624290ebbc83/player.js" as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://m3u8.vturb.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+    <link rel="dns-prefetch" href="https://license.vturb.com">
+
+    <script>
+        window.googlePixelId = "6a08f04f5b5c4ce4887ab26b";
+        var a = document.createElement("script");
+        a.setAttribute("async", "");
+        a.setAttribute("defer", "");
+        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+        document.head.appendChild(a);
+    </script>
+
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5e8d4;
+            color: #08234a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page {
+            min-height: calc(100vh - 150px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            padding: 42px 16px 36px;
+
+            background-color: #f5e8d4;
+
+            /* BACKGROUND */
+            background-image: url("./images/bg_1.webp");
+            background-repeat: repeat;
+            background-size: 180px;
+        }
+
+        .title {
+            max-width: 760px;
+            font-size: 31px;
+            line-height: 1.15;
+            font-weight: 900;
+            color: #08234a;
+            margin-bottom: 24px;
+        }
+
+        .video-box {
+            width: 350px;
+            height: 545px;
+
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+
+            background: #ddd;
+
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .video-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .play-button {
+            position: absolute;
+
+            width: 78px;
+            height: 78px;
+
+            border-radius: 50%;
+
+            background: rgba(215, 32, 32, 0.95);
+
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
+        }
+
+        .play-button::before {
+            content: "";
+
+            margin-left: 6px;
+
+            border-left: 24px solid #fff;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+        }
+
+        footer {
+            min-height: 150px;
+
+            background:
+                linear-gradient(rgba(20, 16, 12, 0.92), rgba(20, 16, 12, 0.92)),
+                url("./images/footer-bg.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            color: rgba(255, 255, 255, 0.38);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 30px 16px;
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.48);
+            text-decoration: none;
+        }
+
+        footer p {
+            margin: 14px 0;
+        }
+
+        /* POPUP */
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.72);
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 999;
+
+            padding: 20px;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup {
+            width: 100%;
+            max-width: 420px;
+
+            background: #fff8ec;
+
+            border-radius: 20px;
+
+            padding: 28px 24px;
+
+            text-align: center;
+
+            border: 2px solid #d8b76c;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+            position: relative;
+
+            animation: popupIn .25s ease;
+        }
+
+        @keyframes popupIn {
+            from {
+                opacity: 0;
+                transform: scale(.92);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-close {
+            position: absolute;
+
+            top: 10px;
+            right: 14px;
+
+            border: none;
+            background: transparent;
+
+            font-size: 28px;
+
+            cursor: pointer;
+
+            color: #6b4b1f;
+        }
+
+        .popup-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        .popup h2 {
+            color: #08234a;
+
+            font-size: 26px;
+            line-height: 1.2;
+
+            margin-bottom: 14px;
+        }
+
+        .popup p {
+            color: #443626;
+
+            font-size: 16px;
+            line-height: 1.5;
+
+            margin-bottom: 22px;
+        }
+
+        .popup button.action {
+            width: 100%;
+
+            border: none;
+
+            background: #b9903f;
+            color: #fff;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .popup button.action:hover {
+            background: #a47f32;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            .page {
+                padding: 34px 8px 30px;
+                background-size: 140px;
+            }
+
+            .title {
+                font-size: 24px;
+                line-height: 1.25;
+                max-width: 340px;
+                margin-bottom: 22px;
+            }
+
+            .video-box {
+                width: 100%;
+                max-width: 438px;
+                height: 545px;
+            }
+
+            .play-button {
+                width: 74px;
+                height: 74px;
+            }
+
+            .play-button::before {
+                border-left: 22px solid #fff;
+                border-top: 14px solid transparent;
+                border-bottom: 14px solid transparent;
+            }
+
+            footer {
+                font-size: 10px;
+                padding: 24px 14px;
+            }
+
+            .popup {
+                padding: 26px 20px;
+            }
+
+            .popup h2 {
+                font-size: 24px;
+            }
+
+            .popup p {
+                font-size: 15px;
+            }
+        }
+
+        @media(max-width:430px) {
+
+            .video-box {
+                height: 535px;
+            }
+
+            .title {
+                font-size: 23px;
+            }
+        }
+
+        @media(max-width:390px) {
+
+            .video-box {
+                height: 510px;
+            }
+
+            .title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <h1 class="title">
+            Escute essa oração de 7<br>
+            palavras e veja nossa<br>
+            senhora desatar todos os<br>
+            nós que prendem a sua vida
+        </h1>
+
+        <vturb-smartplayer id="ab-6a08eebf07a4624290ebbc83" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer>
+        <script type="text/javascript">
+            var s = document.createElement("script");
+            s.src = "https://scripts.converteai.net/cda0fd17-3b99-44d2-a83a-fc66435cb2df/ab-test/6a08eebf07a4624290ebbc83/player.js",
+                s.async = !0, document.head.appendChild(s);
+        </script>
+
+    </main>
+
+    <footer>
+
+        <div>
+
+            <div>
+                <a href="#">Termos de Uso</a> |
+                <a href="#">Política de Privacidade</a>
+            </div>
+
+            <p>
+                Este site não tem qualquer vínculo com o Youtube ou com o YouTube.
+                Depois que você sai do Youtube, a responsabilidade passa a ser nossa, não deles.
+            </p>
+
+            <div>
+                © 2025 Todos os direitos reservados.
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- POPUP -->
+
+    <div class="popup-overlay" id="popup">
+
+        <div class="popup">
+
+            <button class="popup-close" onclick="closePopup()">×</button>
+
+            <div class="popup-icon">🙏</div>
+
+            <h2>
+                Antes de continuar...
+            </h2>
+
+            <p>
+                Prepare seu coração, respire fundo e escute esta oração com fé.
+                Permita que Nossa Senhora desate os nós que hoje prendem a sua vida.
+            </p>
+
+            <button class="action" onclick="closePopup()">
+                Quero escutar a oração
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function openPopup() {
+            document.getElementById("popup").classList.add("active");
+        }
+
+        function closePopup() {
+            document.getElementById("popup").classList.remove("active");
+        }
+
+        document.getElementById("popup").addEventListener("click", function (e) {
+
+            if (e.target === this) {
+                closePopup();
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
